@@ -1,7 +1,7 @@
 # Leetcode 16 - 3 Sum Closest
 # Score: 106/106 testcases passed
 # Solution: Sort the array. Run 3 sum algorithm from Leetcode 15. If a number adds to 0, return 0, otherwise calculate "distance". At the end return closest sum
-# 
+# Learning: Pretty straightforward, just had to adapt the other program to fit this criteria
 
 class Solution(object):
     def threeSumClosest(self, nums, target):

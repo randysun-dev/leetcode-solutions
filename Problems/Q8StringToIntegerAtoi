@@ -1,0 +1,80 @@
+# Leetcode 08 - String to Integer Atoi
+# Score: 1096/1096 testcases passed
+# Solution: Use a for loop to remove all whitespaces and determine starting index. Then,
+# find the end index with another loop to find the first character/end of string.
+# then, return the integer version of the substring.
+# Learning: Did not read the requirements quite correctly and misunderstood the requirements.
+
+"""
+Implement the myAtoi(string s) function, which converts a string to a 32-bit signed integer.
+
+The algorithm for myAtoi(string s) is as follows:
+
+    Whitespace: Ignore any leading whitespace (" ").
+    Signedness: Determine the sign by checking if the next character is '-' or '+', assuming positivity if neither present.
+    Conversion: Read the integer by skipping leading zeros until a non-digit character is encountered or the end of the string is reached. If no digits were read, then the result is 0.
+    Rounding: If the integer is out of the 32-bit signed integer range [-231, 231 - 1], then round the integer to remain in the range. Specifically, integers less than -231 should be rounded to -231, and integers greater than 231 - 1 should be rounded to 231 - 1.
+
+Return the integer as the final result.
+"""
+
+MIN_SIGNED_INT32 = -2147483648
+MAX_SIGNED_INT32 = 2147483647
+
+
+class Solution(object):
+    def myAtoi(self, s):
+        """
+        :type s: str
+        :rtype: int
+        """
+        manipulatedStr = ""
+        cleanString = ""
+        isNeg = False
+        startIndex = -1
+        strLen = len(s)
+        returnNum = 0
+        for i in range(strLen):
+            if s[i] != " " and startIndex == -1:
+                startIndex = i
+        manipulatedStr = s[startIndex:strLen]
+        if len(manipulatedStr) < 1:
+            return 0
+        if manipulatedStr[0] == "-":
+            manipulatedStr = manipulatedStr[1:len(manipulatedStr)]
+            isNeg = True
+        elif manipulatedStr[0] == "+":
+            manipulatedStr = manipulatedStr[1:len(manipulatedStr)]
+
+        endIndex = len(manipulatedStr)
+        for j in range(len(manipulatedStr)):
+            try:
+                if not manipulatedStr[j].isdigit():
+                    endIndex = j
+                    break
+            except:
+                pass
+                
+
+        manipulatedStr = manipulatedStr[0:endIndex]
+        if len(manipulatedStr) == 0:
+            return 0
+        
+        
+        returnNum = int(manipulatedStr)
+        if isNeg:
+            returnNum *= -1
+
+        if returnNum > MAX_SIGNED_INT32:
+            returnNum = MAX_SIGNED_INT32
+        if returnNum < MIN_SIGNED_INT32:
+            returnNum = MIN_SIGNED_INT32
+        return returnNum
+    
+testString = "   -042"
+#testString = "1337c0d3"
+#testString = "0-1"
+#testString = "words and 987"
+#testString = "-91283472332"
+testCase = Solution()
+print(testCase.myAtoi(testString))

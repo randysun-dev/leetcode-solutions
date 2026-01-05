@@ -1,10 +1,10 @@
 # Leetcode 48 - Rotate Image
-# Score: / testcases passed
+# Score: 21/21 testcases passed
 # Solution: Quadrant based. Left Top -> Right Top, Right Top -> Right Bottom, Right Bottom -> Left Bottom, Left Bottom -> Left Top
 # Left Top: X = n-X, Y = old X
 # Right Top: X = old Y, Y = n-X
 # Right Bottom: X = old Y, Y = X
-# Learning: 
+# Learning: Initial algorithm was wrong.
 
 """
 You are given an n x n 2D matrix representing an image, rotate the image by 90 degrees (clockwise).
@@ -25,25 +25,24 @@ class Solution(object):
                 currX = 0+k
                 currY = 0+l
                 oldNum = matrix[currY][currX]
-                
-                for i in range(4):
-                    newX = n-currY-1
-                    newY = currX
-                    saveNum = matrix[newY][newX]
-                    #print(f"Current X: {currX}, current Y: {currY}, new X: {newX}, new Y: {newY}")
-                    #print(oldNum)
-                    matrix[newY][newX] = oldNum
-                    currX = newX
-                    currY = newY
-                    oldNum = saveNum
-            
-            
-            
-        print(f"Current X: {currX}, current Y: {currY}, new X: {newX}, new Y: {newY}")
+                if (isOddMatrix) and ((k == int((n+1)/2)-1) or (n == int((n+1)/2)-1)):
+                    pass
+                else:
+                    for i in range(4):
+                        newX = n-currY-1
+                        newY = currX
+                        saveNum = matrix[newY][newX]
+                        #print(f"Current X: {currX}, current Y: {currY}, new X: {newX}, new Y: {newY}")
+                        #print(oldNum)
+                        matrix[newY][newX] = oldNum
+                        currX = newX
+                        currY = newY
+                        oldNum = saveNum
+
         return matrix
 
-matrix = [[1,2,3],[4,5,6],[7,8,9]]
-#matrix = [[5,1,9,11],[2,4,8,10],[13,3,6,7],[15,14,12,16]]
+#matrix = [[1,2,3],[4,5,6],[7,8,9]]
+matrix = [[5,1,9,11],[2,4,8,10],[13,3,6,7],[15,14,12,16]]
 testCase = Solution()
 print(testCase.rotate(matrix))
 

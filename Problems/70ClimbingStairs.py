@@ -12,8 +12,6 @@ class Solution(object):
             temp = currN
             currN = currN + prevN
             prevN = temp
-            
-            
         return currN
 
 
